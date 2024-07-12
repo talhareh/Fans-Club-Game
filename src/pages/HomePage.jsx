@@ -4,6 +4,9 @@ import { useLocation, } from "react-router-dom"
 import { setUser } from "../store/userSlice"
 import Logo from '../assets/logo.png'
 import bitsBunny from '../assets/BitsBunny.png'
+import btcCoin from '../assets/btcfans_coin.webp'
+
+
 const HomePage = () => {
     const dispatch = useDispatch()
     const location = useLocation()
@@ -38,14 +41,38 @@ const HomePage = () => {
                     
                 </div>
                 <div className="playArea bg-[#0040C2] h-[690px] rounded-t-[50px] rounded-b-[50px] w-full col-span-4 border-t-[5px] border-[#FF8812] p-1">
-                    <div className="infoCards ml-4 mt-8">
-                        <div className="earnRate">
-                            <div className="info">Earn per tap</div>
-                            <div className="ans"> +12</div>
+                    
+                    <div className="infoCards mt-8 flex gap-3 px-2">
+                        
+                        <div className="earnRate bg-[#365ACB] rounded-[15px] py-2 px-2">
+                            <div className="info text-[#F79841]">Earn per tap</div>
+                            <div className="ans text-white flex justify-center"> +12</div>
+                        </div>
+
+                        <div className="cionsNeeded bg-[#365ACB] rounded-[15px] py-2 px-2">
+                            <div className="info text-[#8D90FE]">Coins to level up</div>
+                            <div className="ans text-white flex justify-center"> 10 M</div>
+                        </div>
+                        
+                        <div className="cionsNeeded bg-[#365ACB] rounded-[15px] py-2 px-2">
+                            <div className="info text-[#84CB69]">Profit per hour</div>
+                            <div className="ans text-white flex justify-center"> +636.31K</div>
                         </div>
                     </div>
-                </div>
 
+
+                    <div className="score flex mt-8 justify-center ">
+                        <img src= {btcCoin} width={50} height = {50}/>
+                        <div className="totalTaps px-2 pt-2 text-white text-5xl font-bold">
+                            507,981
+                        </div>
+                    </div>
+                    
+                    <div className="prog">
+
+                    </div>
+
+                </div>
             </div>
         </div>          
         
