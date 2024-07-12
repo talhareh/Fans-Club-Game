@@ -1,19 +1,42 @@
-import { useEffect } from "react"
+import { useEffect , useState} from "react"
 import { useDispatch } from "react-redux"
 import { useLocation, } from "react-router-dom"
-import { setUser } from "../store/userSlice"
 import Logo from '../assets/logo.png'
 import bitsBunny from '../assets/BitsBunny.png'
 import btcCoin from '../assets/btcfans_coin.webp'
-
+import Bunny from '../assets/bunny.png'
 
 const HomePage = () => {
     const dispatch = useDispatch()
     const location = useLocation()
-    
-
     const searchParams = new URLSearchParams(location.search)
     const userId = searchParams.get('userId')
+
+    let currTaps = 0
+    const [totalTaps, setTotalTaps] = useState(0)
+    const [clicks, setClicks] = useState([]);
+    const [bunnyScale, setBunnyScale] = useState(false);
+    const tapsToAdd = 1;
+
+
+    const tapping = (e) => {
+        let taps = currTaps +1
+        setTotalTaps(taps)
+        setBunnyScale(true)
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        setTotalTaps(tapsToAdd+totalTaps)
+        setClicks([...clicks, { id: Date.now(), x, y }]);
+        setTimeout(() => {
+            setBunnyScale(false);
+        }, 1000);
+    }
+
+    const handleAnimationEnd = (id) => {
+        setClicks((prevClicks) => prevClicks.filter(click => click.id !== id));
+      };
 
     useEffect(() =>{
         console.log('Hello Player!!')
@@ -64,15 +87,35 @@ const HomePage = () => {
                     <div className="score flex mt-8 justify-center ">
                         <img src= {btcCoin} width={50} height = {50}/>
                         <div className="totalTaps px-2 pt-2 text-white text-5xl font-bold">
-                            507,981
+                            {totalTaps}
                         </div>
                     </div>
-                    
-                    <div className="prog">
 
+                    <div className="tapArea relative mt-2 bg-[#365ACB] h-[400px] flex justify-center items-center" 
+                         onClick={tapping}
+                    >
+                        <div className="bunny" style={{  animation: bunnyScale ? 'bunny 0.5s ease-out' : 'none' }}>
+                            <img 
+                                src= {Bunny}
+                                className="block mx-auto"
+                            />
+                        </div>
+                        {clicks.map((click) => (
+                            <div
+                                key={click.id}
+                                className="absolute text-3xl text-white font-bold opacity-0"
+                                style={{
+                                top: `${click.y - 42}px`,
+                                left: `${click.x - 28}px`,
+                                animation: `float 1.5s ease-out`
+                                }}
+                                onAnimationEnd={() => handleAnimationEnd(click.id)}
+                            >
+                                +1
+                            </div>
+                        ))}
                     </div>
-
-                </div>
+                </div> 
             </div>
         </div>          
         
