@@ -13,6 +13,7 @@ const userSlice = createSlice({
         setUser: (state, action) =>{
             state.userId = action.payload.userId,
             state.userName = action.payload.userName
+            state.totalTaps = action.payload.totalTaps
         }
     }
 })
