@@ -1,4 +1,4 @@
-import { useEffect , useState} from "react"
+import { useEffect , useState, useRef} from "react"
 import { useDispatch } from "react-redux"
 import { useLocation, } from "react-router-dom"
 import {Logo , bitsBunny, btcCoin, bunnyImage, sphereImage, energyIcon,
@@ -19,6 +19,8 @@ const HomePage = () => {
     const [totalTaps, setTotalTaps] = useState(0)
     const [clicks, setClicks] = useState([]);
     const [bunnyScale, setBunnyScale] = useState(false);
+    const accumulatedTapsRef = useRef(0); // New state variable for accumulated taps
+
     const tapsToAdd = 1;
     const energyToReduce = 1;
 
@@ -38,7 +40,7 @@ const HomePage = () => {
         setTimeout(() => {
             setBunnyScale(false);
         }, 1000);
-
+        accumulatedTapsRef.current += tapsToAdd;
         // console.log('currTaps, ', currTaps)
     }
 
@@ -74,18 +76,15 @@ const HomePage = () => {
         }
     }, [userId, dispatch]);
 
-    // update taps
+ // Update taps every 5 seconds
     useEffect(() => {
         const interval = setInterval(() => {
-          setCurrTaps((prevTaps) => {
-            if (prevTaps > 0) {
-              updateTaps(userId, prevTaps);
-              return 0;  // Reset currTaps
+            if (accumulatedTapsRef.current > 0) {
+                updateTaps(userId, accumulatedTapsRef.current);
+                accumulatedTapsRef.current = 0; 
             }
-            return prevTaps;
-          });
         }, 5000);
-    
+
         return () => clearInterval(interval);
     }, [userId]);
 
