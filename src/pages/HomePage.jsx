@@ -1,58 +1,104 @@
-import { useEffect , useState} from "react"
+import { useEffect , useState, useRef} from "react"
 import { useDispatch } from "react-redux"
 import { useLocation, } from "react-router-dom"
-import {Logo , bitsBunny, btcCoin, bunnyImage, sphereImage, energy,
+import {Logo , bitsBunny, btcCoin, bunnyImage, sphereImage, energyIcon,
         playicon, buyicon, friendsicon, earnicon, airdropicon
         
 } from "../assets"
+import { createNSave , updateTaps} from "../utils/services"
+import { setUser, } from "../store/userSlice"
+import { Circle } from 'rc-progress'; 
 
 const HomePage = () => {
     const dispatch = useDispatch()
     const location = useLocation()
     const searchParams = new URLSearchParams(location.search)
     const userId = searchParams.get('userId')
-
-    let currTaps = 0
+    const [energy, setEnergy] = useState(100);
+    const [currTaps, setCurrTaps] = useState(0);
     const [totalTaps, setTotalTaps] = useState(0)
     const [clicks, setClicks] = useState([]);
     const [bunnyScale, setBunnyScale] = useState(false);
-    const tapsToAdd = 3;
+    const accumulatedTapsRef = useRef(0); // New state variable for accumulated taps
 
+    const tapsToAdd = 1;
+    const energyToReduce = 1;
 
     const tapping = (e) => {
-        let taps = currTaps +1
-        setTotalTaps(taps)
+        if (energy - energyToReduce < 0) {
+            return;
+        }
+        setCurrTaps((prevTaps) => prevTaps + 1);
+        setTotalTaps((prevTotal) => prevTotal + tapsToAdd);
         setBunnyScale(true)
         const rect = e.currentTarget.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        
         setTotalTaps(tapsToAdd+totalTaps)
+        setEnergy(energy - energyToReduce < 0 ? 0 : energy - energyToReduce);
         setClicks([...clicks, { id: Date.now(), x, y }]);
         setTimeout(() => {
             setBunnyScale(false);
         }, 1000);
+        accumulatedTapsRef.current += tapsToAdd;
+        // console.log('currTaps, ', currTaps)
     }
 
     const handleAnimationEnd = (id) => {
         setClicks((prevClicks) => prevClicks.filter(click => click.id !== id));
-      };
+    };
 
-    useEffect(() =>{
-        console.log('Hello Player!!')
-    }, [userId, dispatch])
+    //useEffect hook to restore energy over time
+    useEffect(() => {
+        //console.log('energy : ', energy)
+        const interval = setInterval(() => {
+            // if(energy === 100)
+            //     return
+            setEnergy((prevEnergy) => Math.min(prevEnergy + 1, 100));
+        }, 1000); 
+    
+        return () => clearInterval(interval); 
+      }, []);
+
+    // Regiter User and bring existing user info
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await createNSave({ telegramId: userId });  
+                dispatch(setUser(response.data));
+                setTotalTaps(response.data.totalTaps)
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
+        if (userId) {
+            fetchData();
+        }
+    }, [userId, dispatch]);
+
+ // Update taps every 5 seconds
+    useEffect(() => {
+        const interval = setInterval(() => {
+            if (accumulatedTapsRef.current > 0) {
+                updateTaps(userId, accumulatedTapsRef.current);
+                accumulatedTapsRef.current = 0; 
+            }
+        }, 5000);
+
+        return () => clearInterval(interval);
+    }, [userId]);
+
 
     return (
-        
         <div className="flex items-center justify-center bg-gray-100 ">
             <div className="container grid grid-cols-4 w-full max-w-md  h-full bg-white pt-2  ">
                 <div className="col-span-4 flex justify-center mt-4">
                     <img
                         src={Logo} 
-                        width={150}
-                        height={150}
+                        width={200}
+                        height={200}
                         alt="Bitcoin Fans Club"
-                        className="h-16" 
+                         
                     />
                 </div>
                 <div className="col-span-4 flex justify-between items-center py-2 rounded-lg mt-4 px-3">
@@ -66,7 +112,7 @@ const HomePage = () => {
                     
                 </div>
 
-                <div className="playArea bg-[#0040C2] h-[752px] rounded-t-[50px] w-full col-span-4 border-t-[5px] border-[#FF8812] p-1">
+                <div className="playArea bg-[#0040C2] rounded-t-[50px] w-full col-span-4 border-t-[5px] border-[#FF8812] p-1 pb-6">
                     
                     <div className="infoCards mt-8 flex gap-3 px-2">
                         
@@ -89,14 +135,32 @@ const HomePage = () => {
 
                     <div className="score flex mt-8 justify-center ">
                         <img src= {btcCoin} width={50} height = {50}/>
-                        <div className="totalTaps px-2 pt-2 text-white text-5xl font-bold">
+                        <div className="totalTaps px-2 pt-1 text-white text-5xl font-bold">
                             {totalTaps}
                         </div>
                     </div>
 
-                    <div className="tapArea relative mt-2 h-[400px] flex justify-center items-center" 
+                    <div className="tapArea relative mt-2 h-[380px] flex justify-center items-center" 
                          onClick={tapping}
                     >
+                        <div className="absolute z-10" style={{ height: '40vh', width: '40vh' }}>
+                            <Circle
+                            percent={energy}
+                            strokeWidth={2}
+                            strokeColor="#FF8812"
+                            trailWidth={4}
+                            trailColor="#365ACB00"
+                            className="relative z-10"
+                            />
+                            {/* <div
+                            className="absolute inset-0 flex items-center justify-center rounded-full"
+                            style={{
+                                width: 'calc(100% - 8px)',
+                                height: 'calc(100% - 8px)',
+                                background: 'radial-gradient(circle at 50% 40%, #FFFFFF 0%, #35389E 40%, #1C2848 100%)'
+                            }}
+                            ></div> */}
+                        </div>
                         <div className="sphere relative z-0">
                             <img src={sphereImage}/>
                         </div>
@@ -109,7 +173,7 @@ const HomePage = () => {
                         {clicks.map((click) => (
                             <div
                                 key={click.id}
-                                className="absolute text-3xl text-white font-bold opacity-0"
+                                className="absolute text-3xl text-white font-bold opacity-0 z-20"
                                 style={{
                                 top: `${click.y - 42}px`,
                                 left: `${click.x - 28}px`,
@@ -124,13 +188,13 @@ const HomePage = () => {
                     {/* end of Tap Area */}
                     
                     {/* Energy & Boost */}
-                    <div className="boostProgress text-center text-white text-sm mb-4 flex justify-between items-center px-2">
-                        <div className="flex items-center">
-                            <img src={energy} alt="Icon" className="h-5 w-5 mr-2" />
-                            <span>500 / 500</span>
+                    {/* <div className="boostProgress text-center text-white text-sm mb-4 flex justify-between items-center px-2"> */}
+                        <div className="flex items-center justify-center text-xl text-white mb-4">
+                            <img src={energyIcon} alt="Icon" className="h-5 w-5 mr-2" />
+                            <span>{energy} / 100</span>
                         </div>
-                        <span>Boost</span>
-                    </div>
+                        {/* <span>Boost</span> */}
+                    {/* </div> */}
 
                     {/* footer meu */}
                     <div className="navBar flex justify-around p-2 bg-[#365ACB] rounded-[20px] w-full">
