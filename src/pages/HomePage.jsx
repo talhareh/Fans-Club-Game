@@ -91,14 +91,13 @@ const HomePage = () => {
 
     return (
         <div className="flex items-center justify-center bg-gray-100 ">
-            <div className="container grid grid-cols-4 w-full max-w-md  h-full bg-white pt-2  ">
-                <div className="col-span-4 flex justify-center mt-4">
+            <div className="container grid grid-cols-4 w-full max-w-md  h-full bg-white  ">
+                <div className="sticky top-0 z-0 col-span-4 flex justify-center mt-4" style={{ minHeight: '15vh' }}>
                     <img
                         src={Logo} 
                         width={200}
                         height={200}
                         alt="Bitcoin Fans Club"
-                         
                     />
                 </div>
                 <div className="col-span-4 flex justify-between items-center py-2 rounded-lg mt-4 px-3">
@@ -112,7 +111,7 @@ const HomePage = () => {
                     
                 </div>
 
-                <div className="playArea bg-[#0040C2] rounded-t-[50px] w-full col-span-4 border-t-[5px] border-[#FF8812] p-1 pb-6">
+                <div className="playArea relative z-20 bg-[#0040C2] rounded-t-[50px] w-full col-span-4 border-t-[5px] border-[#FF8812] p-1 pb-6">
                     
                     <div className="infoCards mt-8 flex gap-3 px-2">
                         
