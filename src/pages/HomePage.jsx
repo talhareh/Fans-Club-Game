@@ -39,23 +39,26 @@ const HomePage = () => {
             setBunnyScale(false);
         }, 1000);
 
-        console.log('currTaps, ', currTaps)
+        // console.log('currTaps, ', currTaps)
     }
 
     const handleAnimationEnd = (id) => {
         setClicks((prevClicks) => prevClicks.filter(click => click.id !== id));
     };
 
-    // useEffect hook to restore energy over time
+    //useEffect hook to restore energy over time
     useEffect(() => {
+        //console.log('energy : ', energy)
         const interval = setInterval(() => {
-          setEnergy((prevEnergy) => Math.min(prevEnergy + 1, 6500));
-        }, 100); // Restore 10 energy points every second
+            // if(energy === 100)
+            //     return
+            setEnergy((prevEnergy) => Math.min(prevEnergy + 1, 100));
+        }, 1000); 
     
-        return () => clearInterval(interval); // Clear interval on component unmount
+        return () => clearInterval(interval); 
       }, []);
 
-
+    // Regiter User and bring existing user info
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -71,6 +74,7 @@ const HomePage = () => {
         }
     }, [userId, dispatch]);
 
+    // update taps
     useEffect(() => {
         const interval = setInterval(() => {
           setCurrTaps((prevTaps) => {
@@ -83,7 +87,7 @@ const HomePage = () => {
         }, 5000);
     
         return () => clearInterval(interval);
-      }, [userId]);
+    }, [userId]);
 
 
     return (
@@ -92,10 +96,10 @@ const HomePage = () => {
                 <div className="col-span-4 flex justify-center mt-4">
                     <img
                         src={Logo} 
-                        width={220}
+                        width={200}
                         height={200}
                         alt="Bitcoin Fans Club"
-                        className="h-16" 
+                         
                     />
                 </div>
                 <div className="col-span-4 flex justify-between items-center py-2 rounded-lg mt-4 px-3">
@@ -109,7 +113,7 @@ const HomePage = () => {
                     
                 </div>
 
-                <div className="playArea bg-[#0040C2] h-[752px] rounded-t-[50px] w-full col-span-4 border-t-[5px] border-[#FF8812] p-1">
+                <div className="playArea bg-[#0040C2] rounded-t-[50px] w-full col-span-4 border-t-[5px] border-[#FF8812] p-1 pb-6">
                     
                     <div className="infoCards mt-8 flex gap-3 px-2">
                         
@@ -137,26 +141,26 @@ const HomePage = () => {
                         </div>
                     </div>
 
-                    <div className="tapArea relative mt-2 h-[400px] flex justify-center items-center" 
+                    <div className="tapArea relative mt-2 h-[380px] flex justify-center items-center" 
                          onClick={tapping}
                     >
-                        <div className="absolute z-0" style={{ height: '30vh', width: '30vh' }}>
+                        <div className="absolute z-10" style={{ height: '40vh', width: '40vh' }}>
                             <Circle
                             percent={energy}
-                            strokeWidth={4}
+                            strokeWidth={2}
                             strokeColor="#FF8812"
                             trailWidth={4}
                             trailColor="#365ACB00"
                             className="relative z-10"
                             />
-                            <div
+                            {/* <div
                             className="absolute inset-0 flex items-center justify-center rounded-full"
                             style={{
                                 width: 'calc(100% - 8px)',
                                 height: 'calc(100% - 8px)',
                                 background: 'radial-gradient(circle at 50% 40%, #FFFFFF 0%, #35389E 40%, #1C2848 100%)'
                             }}
-                            ></div>
+                            ></div> */}
                         </div>
                         <div className="sphere relative z-0">
                             <img src={sphereImage}/>
@@ -170,7 +174,7 @@ const HomePage = () => {
                         {clicks.map((click) => (
                             <div
                                 key={click.id}
-                                className="absolute text-3xl text-white font-bold opacity-0"
+                                className="absolute text-3xl text-white font-bold opacity-0 z-20"
                                 style={{
                                 top: `${click.y - 42}px`,
                                 left: `${click.x - 28}px`,
@@ -185,13 +189,13 @@ const HomePage = () => {
                     {/* end of Tap Area */}
                     
                     {/* Energy & Boost */}
-                    <div className="boostProgress text-center text-white text-sm mb-4 flex justify-between items-center px-2">
-                        <div className="flex items-center">
+                    {/* <div className="boostProgress text-center text-white text-sm mb-4 flex justify-between items-center px-2"> */}
+                        <div className="flex items-center justify-center text-xl text-white mb-4">
                             <img src={energyIcon} alt="Icon" className="h-5 w-5 mr-2" />
-                            <span>500 / 500</span>
+                            <span>{energy} / 100</span>
                         </div>
-                        <span>Boost</span>
-                    </div>
+                        {/* <span>Boost</span> */}
+                    {/* </div> */}
 
                     {/* footer meu */}
                     <div className="navBar flex justify-around p-2 bg-[#365ACB] rounded-[20px] w-full">
