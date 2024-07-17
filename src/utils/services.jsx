@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { handleResponse, handleErrors } from './responseHandler';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
@@ -9,10 +10,10 @@ export const createNSave = async (data) => {
                 'Content-Type': 'application/json'
             }
         });
-        //console.log('Response:', response.data);
-        return response
+        return handleResponse(response);
     } catch (error) {
         console.error('Error creating user:', error);
+        handleErrors(error.response ? error.response.status : null);
     }
 };
 
@@ -23,9 +24,9 @@ export const updateTaps = async (telegramId, tapsToAdd) => {
                 'Content-Type': 'application/json'
             }
         });
-        return response
-        //console.log('Response:', response.data);
+        return handleResponse(response);
     } catch (error) {
         console.error('Error updating taps:', error);
+        handleErrors(error.response ? error.response.status : null);
     }
 };
