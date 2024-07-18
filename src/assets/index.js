@@ -10,9 +10,9 @@ import buyicon from './buy-icon.png';
 import friendsicon from './friends-icon.png';
 import earnicon from './earn-icon.png';
 import airdropicon from './airdrop-icon.png';
-
+import Splash from './Splash.jpeg'
 export {
-    Logo,bunnyImage, sphereImage,
+    Logo,bunnyImage, sphereImage,Splash,
     bitsBunny,
     btcCoin,
     character, energyIcon,
