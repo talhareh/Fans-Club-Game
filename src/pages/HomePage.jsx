@@ -8,6 +8,7 @@ import {Logo , bitsBunny, btcCoin, bunnyImage, sphereImage, energyIcon,
 import { createNSave , updateTaps} from "../utils/services"
 import { setUser, } from "../store/userSlice"
 import { Circle } from 'rc-progress'; 
+import ModalAlert from "../components/modalAlert"
 
 const HomePage = () => {
     const dispatch = useDispatch()
@@ -20,6 +21,8 @@ const HomePage = () => {
     const [clicks, setClicks] = useState([]);
     const [bunnyScale, setBunnyScale] = useState(false);
     const accumulatedTapsRef = useRef(0); // New state variable for accumulated taps
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalContent, setModalContent] = useState(null);
 
     const tapsToAdd = 1;
     const energyToReduce = 1;
@@ -88,7 +91,21 @@ const HomePage = () => {
         return () => clearInterval(interval);
     }, [userId]);
 
+    const openModal = (content) => {
+        setModalContent(content);
+        setIsModalOpen(true);
+    };
 
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setModalContent(null);
+    };
+
+    const handleModalAction = (action) => {
+        // Handle the action from the modal
+        console.log('Modal action:', action);
+        closeModal();
+    };
     return (
         <div className="flex items-center justify-center bg-gray-100 ">
             <div className="container grid grid-cols-4 w-full max-w-md  h-full bg-white  ">
@@ -114,23 +131,47 @@ const HomePage = () => {
                 <div className="playArea relative z-20 bg-[#0040C2] rounded-t-[50px] w-full col-span-4 border-t-[5px] border-[#FF8812] p-1 pb-6">
                     
                     <div className="infoCards mt-8 flex gap-3 px-2">
-                        
-                        <div className="earnRate bg-[#365ACB] rounded-[15px] py-2 px-2">
+                        <div className="earnRate bg-[#365ACB] rounded-[15px] py-2 px-2" 
+                            onClick={() => openModal(
+                                <div>
+                                    <p className="text-white mb-4">Choose your earn rate:</p>
+                                    <select className="w-full p-2 rounded" onChange={(e) => handleModalAction(e.target.value)}>
+                                        <option value="10">10 per tap</option>
+                                        <option value="20">20 per tap</option>
+                                        <option value="30">30 per tap</option>
+                                    </select>
+                                </div>
+                            )}>
                             <div className="info text-[#F79841]">Earn per tap</div>
                             <div className="ans text-white flex justify-center"> +12</div>
                         </div>
 
-                        <div className="cionsNeeded bg-[#365ACB] rounded-[15px] py-2 px-2">
+                        <div className="cionsNeeded bg-[#365ACB] rounded-[15px] py-2 px-2"
+                            onClick={() => openModal(
+                                <div>
+                                    <p className="text-white mb-4">Set coins needed to level up:</p>
+                                    <input type="number" className="w-full p-2 rounded" placeholder="Enter coin amount" 
+                                            onChange={(e) => handleModalAction(e.target.value)} />
+                                </div>
+                            )}>
                             <div className="info text-[#8D90FE]">Coins to level up</div>
                             <div className="ans text-white flex justify-center"> 10 M</div>
                         </div>
                         
-                        <div className="cionsNeeded bg-[#365ACB] rounded-[15px] py-2 px-2">
+                        <div className="cionsNeeded bg-[#365ACB] rounded-[15px] py-2 px-2"
+                            onClick={() => openModal(
+                                <div>
+                                    <p className="text-white mb-4">Adjust profit per hour:</p>
+                                    <button className="bg-[#FF8812] text-white px-4 py-2 rounded w-full" 
+                                            onClick={() => handleModalAction('increase_profit')}>
+                                        Increase Profit
+                                    </button>
+                                </div>
+                            )}>
                             <div className="info text-[#84CB69]">Profit per hour</div>
                             <div className="ans text-white flex justify-center"> +636.31K</div>
                         </div>
                     </div>
-
 
                     <div className="score flex mt-8 justify-center ">
                         <img src= {btcCoin} width={50} height = {50}/>
@@ -224,6 +265,9 @@ const HomePage = () => {
 
                 
             </div>
+            <ModalAlert isOpen={isModalOpen} onClose={closeModal} title="Card Details">
+                {modalContent}
+            </ModalAlert>
         </div>          
         
     )
