@@ -1,7 +1,7 @@
-import { useEffect , useState, useRef} from "react"
+import { useEffect , useState, useRef,} from "react"
 import { useDispatch } from "react-redux"
-import { useLocation, } from "react-router-dom"
-import {Logo , bitsBunny, btcCoin, bunnyImage, sphereImage, energyIcon,
+import { useLocation, useNavigate } from "react-router-dom"
+import { btcCoin, bunnyImage, sphereImage, energyIcon,
         playicon, buyicon, friendsicon, earnicon, airdropicon
         
 } from "../assets"
@@ -13,6 +13,7 @@ import ModalAlert from "../components/modalAlert"
 const HomePage = () => {
     const dispatch = useDispatch()
     const location = useLocation()
+    const navigate = useNavigate()
     const searchParams = new URLSearchParams(location.search)
     const userId = searchParams.get('userId')
     const [energy, setEnergy] = useState(100);
@@ -107,27 +108,7 @@ const HomePage = () => {
         closeModal();
     };
     return (
-        <div className="flex items-center justify-center bg-gray-100 ">
-            <div className="container grid grid-cols-4 w-full max-w-md  h-full bg-white  ">
-                <div className="sticky top-0 z-0 col-span-4 flex justify-center mt-4" style={{ minHeight: '15vh' }}>
-                    <img
-                        src={Logo} 
-                        width={200}
-                        height={200}
-                        alt="Bitcoin Fans Club"
-                    />
-                </div>
-                <div className="col-span-4 flex justify-between items-center py-2 rounded-lg mt-4 px-3">
-                    <div className="flex items-center">
-                        <img src={bitsBunny} alt="Bits Bunny" className="h-8 w-8 rounded-lg bg-white p-1" />
-                        <div className="text-[#0040C2] font-bold">Bits Bunny</div>
-                    </div>
-                    <div className="webButton mr-2 m-1">
-                        <button className="bg-[#0040C2] text-white px-2 py-1 rounded-[12px]">Website</button>
-                    </div>
-                    
-                </div>
-
+        
                 <div className="playArea relative z-20 bg-[#0040C2] rounded-t-[50px] w-full col-span-4 border-t-[5px] border-[#FF8812] p-1 pb-6">
                     
                     <div className="infoCards mt-8 flex gap-3 px-2">
@@ -248,7 +229,7 @@ const HomePage = () => {
                         </button>
                         <button className="bg-[#FF881200] text-white px-4 py-2 rounded-[12px] text-sm font-regular flex flex-col items-center w-20">
                             
-                            <img src={friendsicon} alt="Icon" className="h-10" />
+                            <img src={friendsicon} alt="Icon" className="h-10" onClick={() => navigate('/ref')} />
                             Friends
                         </button>
                         <button className="bg-[#FF881200] text-white px-4 py-2 rounded-[12px] text-sm font-regular flex flex-col items-center w-20">
@@ -259,16 +240,17 @@ const HomePage = () => {
                             <img src={airdropicon} alt="Icon" className="h-10" />
                             Airdrop
                         </button>
-                        </div>
+                    </div>
+                    <ModalAlert isOpen={isModalOpen} onClose={closeModal} title="Card Details">
+                        {modalContent}
+                    </ModalAlert>
                 </div> 
-                {/* {End of play Area} */}
+                
 
                 
-            </div>
-            <ModalAlert isOpen={isModalOpen} onClose={closeModal} title="Card Details">
-                {modalContent}
-            </ModalAlert>
-        </div>          
+            
+            
+                 
         
     )
 }
