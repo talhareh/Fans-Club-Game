@@ -4,6 +4,8 @@ import HomePage from './pages/HomePage'
 import Buy from './pages/Buy'
 import Repo from './pages/gitRepo'
 import SplashScreen from './pages/SplashScreen'
+import Referral from './pages/Referral'
+import Layout from './components/Layout'
 
 const App = () =>{
 
@@ -13,7 +15,7 @@ const App = () =>{
       const webapp = window.Telegram.WebApp;
       webapp.expand();
       webapp.ready();
-      webapp.setHeaderColor('#FFFFFF');
+      webapp.setHeaderColor('#F8922A');
       webapp.setBackgroundColor('#FFFFFF');
     }
   }, []);
@@ -21,8 +23,12 @@ const App = () =>{
     <BrowserRouter>
       <Routes>
         <Route path = '/' element ={<SplashScreen/>} />
-        <Route path = 'homepage' element ={<HomePage/>} />
+        <Route element={<Layout />}>
+          <Route path = 'homepage' element ={<HomePage/>} />
+          <Route path= 'ref' element ={<Referral/>} />
+        </Route>
         <Route path= 'buy' element ={<Buy/>} />
+        <Route path= 'ref' element ={<Referral/>} />
         <Route path= 'repo' element ={<Repo/>} />
       </Routes>
     </BrowserRouter>

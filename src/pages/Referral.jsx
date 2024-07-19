@@ -2,9 +2,19 @@
 
 const Referral = () => {
   return (
-    <div>
+    <div className="w-full flex">
         Invite your friends!!
-        Your and your friend will recieve bonuses
+        Your and your friend will recieve bonuses jhbjhbj
+        Invite your friends!!
+        Your and your friend will recieve bonuses jhbjhbj
+        Invite your friends!!
+        Your and your friend will recieve bonuses jhbjhbj
+        Invite your friends!!
+        Your and your friend will recieve bonuses jhbjhbj
+        Invite your friends!!
+        Your and your friend will recieve bonuses jhbjhbj
+        Invite your friends!!
+        Your and your friend will recieve bonuses jhbjhbj
     </div>
   )
 }
