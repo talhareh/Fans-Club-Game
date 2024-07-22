@@ -1,5 +1,4 @@
-import React from 'react';
-
+/* eslint-disable react/prop-types */
 const ModalAlert = ({ isOpen, onClose, title, children }) => {
   if (!isOpen) return null;
 
