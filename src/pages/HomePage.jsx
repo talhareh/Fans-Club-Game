@@ -109,9 +109,9 @@ const HomePage = () => {
     };
     return (
         
-                <div className="playArea relative z-20 bg-[#0040C2] rounded-t-[50px] w-full col-span-4 border-t-[5px] border-[#FF8812] p-1 pb-6">
+                <div className="playArea relative z-20 bg-[#0040C2] rounded-t-[50px] w-full col-span-4 border-t-[5px] border-[#F8922A] p-1 pb-6">
                     
-                    <div className="infoCards mt-8 flex gap-3 px-2">
+                    <div className="infoCards mt-8 flex gap-3 pl-6">
                         <div className="earnRate bg-[#365ACB] rounded-[15px] py-2 px-2" 
                             onClick={() => openModal(
                                 <div>
@@ -143,7 +143,7 @@ const HomePage = () => {
                             onClick={() => openModal(
                                 <div>
                                     <p className="text-white mb-4">Adjust profit per hour:</p>
-                                    <button className="bg-[#FF8812] text-white px-4 py-2 rounded w-full" 
+                                    <button className="bg-[#F8922A] text-white px-4 py-2 rounded w-full" 
                                             onClick={() => handleModalAction('increase_profit')}>
                                         Increase Profit
                                     </button>
@@ -168,7 +168,7 @@ const HomePage = () => {
                             <Circle
                             percent={energy}
                             strokeWidth={2}
-                            strokeColor="#FF8812"
+                            strokeColor="#F8922A"
                             trailWidth={4}
                             trailColor="#365ACB00"
                             className="relative z-10"
@@ -217,30 +217,7 @@ const HomePage = () => {
                         {/* <span>Boost</span> */}
                     {/* </div> */}
 
-                    {/* footer meu */}
-                    <div className="navBar flex justify-around p-2 bg-[#365ACB] rounded-[20px] w-full">
-                        <button className="bg-[#FF8812] text-white px-4 py-2 rounded-[12px] text-sm font-regular flex flex-col items-center w-20">
-                            <img src={playicon} alt="Icon" className="h-10" />
-                            Play
-                        </button>
-                        <button className="bg-[#FF881200] text-white px-4 py-2 rounded-[12px] text-sm font-regular flex flex-col items-center w-20">
-                            <img src={buyicon} alt="Icon" className="h-10" />
-                            Buy
-                        </button>
-                        <button className="bg-[#FF881200] text-white px-4 py-2 rounded-[12px] text-sm font-regular flex flex-col items-center w-20">
-                            
-                            <img src={friendsicon} alt="Icon" className="h-10" onClick={() => navigate('/ref')} />
-                            Friends
-                        </button>
-                        <button className="bg-[#FF881200] text-white px-4 py-2 rounded-[12px] text-sm font-regular flex flex-col items-center w-20">
-                            <img src={earnicon} alt="Icon" className="h-10" />
-                            Earn
-                        </button>
-                        <button className="bg-[#FF881200] text-white px-4 py-2 rounded-[12px] text-sm font-regular flex flex-col items-center w-20">
-                            <img src={airdropicon} alt="Icon" className="h-10" />
-                            Airdrop
-                        </button>
-                    </div>
+                    
                     <ModalAlert isOpen={isModalOpen} onClose={closeModal} title="Card Details">
                         {modalContent}
                     </ModalAlert>
