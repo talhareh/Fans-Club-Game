@@ -1,9 +1,7 @@
 import { useEffect , useState, useRef,} from "react"
 import { useDispatch } from "react-redux"
-import { useLocation, useNavigate } from "react-router-dom"
-import { btcCoin, bunnyImage, sphereImage, energyIcon,
-        playicon, buyicon, friendsicon, earnicon, airdropicon
-        
+import { useLocation, } from "react-router-dom"
+import { btcCoin, bunnyImage, sphereImage, energyIcon        
 } from "../assets"
 import { createNSave , updateTaps} from "../utils/services"
 import { setUser, } from "../store/userSlice"
@@ -13,7 +11,6 @@ import ModalAlert from "../components/modalAlert"
 const HomePage = () => {
     const dispatch = useDispatch()
     const location = useLocation()
-    const navigate = useNavigate()
     const searchParams = new URLSearchParams(location.search)
     const userId = searchParams.get('userId')
     const [energy, setEnergy] = useState(100);
