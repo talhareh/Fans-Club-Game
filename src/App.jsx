@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import HomePage from './pages/HomePage'
-import Buy from './pages/Buy'
+import DailyTasks from './pages/DailyTasks'
 import Repo from './pages/gitRepo'
 import SplashScreen from './pages/SplashScreen'
 import Referral from './pages/Referral'
@@ -26,8 +26,9 @@ const App = () =>{
         <Route element={<Layout />}>
           <Route path = 'homepage' element ={<HomePage/>} />
           <Route path= 'ref' element ={<Referral/>} />
+          <Route path= 'earn' element ={<DailyTasks/>} />
         </Route>
-        <Route path= 'buy' element ={<Buy/>} />
+        
         <Route path= 'ref' element ={<Referral/>} />
         <Route path= 'repo' element ={<Repo/>} />
       </Routes>
