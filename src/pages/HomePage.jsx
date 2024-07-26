@@ -1,13 +1,14 @@
-/* eslint-disable no-unused-vars */
+/*eslint-disable no-unused-vars */
 import { useEffect , useState, useRef,} from "react"
 import { useDispatch } from "react-redux"
 import { useLocation, } from "react-router-dom"
-import { btcCoin, bunnyImage, sphereImage, energyIcon        
+import {  bunnyImage, sphereImage, energyIcon        
 } from "../assets"
 import { createNSave , updateTaps} from "../utils/services"
 import { setUser, } from "../store/userSlice"
 import { Circle } from 'rc-progress'; 
 import ModalAlert from "../components/modalAlert"
+import GlowingBtcCoin from "../components/GlowingBtcCoin"
 
 const HomePage = () => {
     const dispatch = useDispatch()
@@ -153,10 +154,7 @@ const HomePage = () => {
                     </div>
 
                     <div className="score flex mt-8 justify-center ">
-                        <img src= {btcCoin} width={50} height = {50}
-                              
-                        />
-                        
+                        <GlowingBtcCoin width={50} height = {50}/>
                         <div className="totalTaps px-2 pt-1 text-white text-5xl font-bold">
                             {totalTaps}
                         </div>
