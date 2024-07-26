@@ -7,8 +7,8 @@ const Layout = () => {
 
   return (
     <div className="grid grid-cols-4">
-      <header className="header col-span-4">
-        <div className="sticky top-0 z-0 col-span-4 flex justify-center mt-4" style={{ minHeight: '15vh' }}>
+      <header className="header col-span-4 sticky top-0 z-0">
+        <div className=" col-span-4 flex justify-center mt-4" style={{ minHeight: '15vh' }}>
           <img src={Logo} width={200} height={200} alt="Bitcoin Fans Club" />
         </div>
         <div className="col-span-4 flex justify-between items-center py-2 rounded-lg mt-4 px-3">
@@ -64,7 +64,7 @@ const Layout = () => {
             onClick={() => navigate('/airdrop')}
           >
             <img src={airdropicon} alt="Icon" className="h-10" />
-            Airdrop
+            Vault
           </button>
         </div>
       </main>

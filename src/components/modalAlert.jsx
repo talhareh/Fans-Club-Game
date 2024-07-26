@@ -14,13 +14,13 @@ const ModalAlert = ({ isOpen, onClose, title, children }) => {
       onClick={handleOverlayClick}
     >
       <div 
-        className="bg-[#0040C2] rounded-t-[50px] w-full border-t-4 border-[#FF8812] h-[50vh] flex flex-col"
+        className="bg-[#0040C2] rounded-t-[50px] w-full border-t-4 border-[#FF8812] h-[70vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex justify-between items-center p-4 border-b border-gray-200">
+        {/* <div className="flex justify-between items-center p-4 border-b border-gray-200">
           <h2 className="text-xl font-bold text-white">{title}</h2>
           <button onClick={onClose} className="text-white text-2xl">&times;</button>
-        </div>
+        </div> */}
         <div className="p-4 flex-grow overflow-y-auto">
           {children}
         </div>

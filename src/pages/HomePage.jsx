@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect , useState, useRef,} from "react"
 import { useDispatch } from "react-redux"
 import { useLocation, } from "react-router-dom"
@@ -152,7 +153,10 @@ const HomePage = () => {
                     </div>
 
                     <div className="score flex mt-8 justify-center ">
-                        <img src= {btcCoin} width={50} height = {50}/>
+                        <img src= {btcCoin} width={50} height = {50}
+                              
+                        />
+                        
                         <div className="totalTaps px-2 pt-1 text-white text-5xl font-bold">
                             {totalTaps}
                         </div>
