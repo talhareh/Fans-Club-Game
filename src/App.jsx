@@ -6,6 +6,7 @@ import Repo from './pages/gitRepo'
 import SplashScreen from './pages/SplashScreen'
 import Referral from './pages/Referral'
 import Layout from './components/Layout'
+import Buy from './pages/Buy'
 
 const App = () =>{
 
@@ -27,6 +28,8 @@ const App = () =>{
           <Route path = 'homepage' element ={<HomePage/>} />
           <Route path= 'ref' element ={<Referral/>} />
           <Route path= 'earn' element ={<DailyTasks/>} />
+          <Route path= 'buy' element ={<Buy/>} />
+
         </Route>
         
         <Route path= 'ref' element ={<Referral/>} />

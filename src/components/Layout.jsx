@@ -30,7 +30,7 @@ const Layout = () => {
         </div>
 
         {/* Footer Menu */}
-        <div className="navBar flex justify-around p-2 bg-[#365ACB] w-full">
+        <div className="navBar sticky bottom-0 flex justify-around p-2 bg-[#365ACB] w-full">
           <button
             className={`text-white px-4 py-2 rounded-[12px] text-sm font-regular flex flex-col items-center w-20 ${location.pathname === '/homepage' ? 'bg-[#FF8812]' : 'bg-[#FF881200]'}`}
             onClick={() => navigate('/homepage')}
