@@ -10,11 +10,12 @@ import { Circle } from 'rc-progress';
 import ModalAlert from "../components/modalAlert"
 import GlowingBtcCoin from "../components/GlowingBtcCoin"
 
-const HomePage = () => {
+const HomePage = ({userId}) => {
     const dispatch = useDispatch()
     const location = useLocation()
     const searchParams = new URLSearchParams(location.search)
-    const userId = searchParams.get('userId')
+    //const userId = searchParams.get('userId')
+    //console.log('userId , ', userId)
     const [energy, setEnergy] = useState(100);
     const [currTaps, setCurrTaps] = useState(0);
     const [totalTaps, setTotalTaps] = useState(0)
@@ -67,9 +68,10 @@ const HomePage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await createNSave({ telegramId: userId });  
-                dispatch(setUser(response.data));
-                setTotalTaps(response.data.totalTaps)
+                const response = await createNSave({ telegramId: userId });
+                console.log("hoome : ",response)  
+                dispatch(setUser(response));
+                setTotalTaps(response.totalTaps)
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }

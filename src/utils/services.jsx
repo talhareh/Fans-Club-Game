@@ -10,6 +10,7 @@ export const createNSave = async (data) => {
                 'Content-Type': 'application/json'
             }
         });
+        console.log(handleResponse(response))
         return handleResponse(response);
     } catch (error) {
         console.error('Error creating user:', error);

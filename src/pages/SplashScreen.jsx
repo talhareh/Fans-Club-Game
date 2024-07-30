@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Splash } from '../assets';
 
+
 const Loader = () => (
   <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-10">
     <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-[#FF8812]"></div>
@@ -13,6 +14,7 @@ const SplashScreen = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    
     const timer = setTimeout(() => {
       setLoading(false);
       navigate('/homepage');

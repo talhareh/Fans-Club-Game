@@ -7,6 +7,7 @@ import SplashScreen from './pages/SplashScreen'
 import Referral from './pages/Referral'
 import Layout from './components/Layout'
 import Buy from './pages/Buy'
+import WebApp from '@twa-dev/sdk'
 
 const App = () =>{
 
@@ -19,13 +20,16 @@ const App = () =>{
       webapp.setHeaderColor('#F8922A');
       webapp.setBackgroundColor('#FFFFFF');
     }
+    if(WebApp.initDataUnsafe.user){
+      console.log(WebApp.initDataUnsafe.user)
+    }
   }, []);
   return (
     <BrowserRouter>
       <Routes>
         <Route path = '/' element ={<SplashScreen/>} />
         <Route element={<Layout />}>
-          <Route path = 'homepage' element ={<HomePage/>} />
+          <Route path = 'homepage' element ={<HomePage userId= {123}/>} />
           <Route path= 'ref' element ={<Referral/>} />
           <Route path= 'earn' element ={<DailyTasks/>} />
           <Route path= 'buy' element ={<Buy/>} />
