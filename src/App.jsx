@@ -18,9 +18,6 @@ const App = () =>{
       webapp.setHeaderColor('#F8922A');
       webapp.setBackgroundColor('#FFFFFF');
     }
-    
-
-    
   }, []);
   return (
     <BrowserRouter>
