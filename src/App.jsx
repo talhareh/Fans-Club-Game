@@ -1,16 +1,14 @@
 import { useEffect } from 'react'
-import {BrowserRouter, Route, Routes} from 'react-router-dom'
-import HomePage from './pages/HomePage'
-import DailyTasks from './pages/DailyTasks'
-import Repo from './pages/gitRepo'
-import SplashScreen from './pages/SplashScreen'
-import Referral from './pages/Referral'
+import {BrowserRouter, Route, Routes,} from 'react-router-dom'
 import Layout from './components/Layout'
-import Buy from './pages/Buy'
-import WebApp from '@twa-dev/sdk'
+import { HomePage, SplashScreen, Repo, Referral, DailyTasks,
+          Buy
+ } from './pages'
+
 
 const App = () =>{
 
+  
   useEffect(() => {
     
     if (window.Telegram && window.Telegram.WebApp) {
@@ -20,9 +18,9 @@ const App = () =>{
       webapp.setHeaderColor('#F8922A');
       webapp.setBackgroundColor('#FFFFFF');
     }
-    if(WebApp.initDataUnsafe.user){
-      console.log(WebApp.initDataUnsafe.user)
-    }
+    
+
+    
   }, []);
   return (
     <BrowserRouter>

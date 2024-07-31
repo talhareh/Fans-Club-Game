@@ -10,13 +10,9 @@ const Referral = () => {
   }, []);
 
   const handleInvite = () => {
-    const inviteText = `https://t.me/hamster_kombat_boT/start?startapp=kentId6274852423
-                          Join the revolution, and get a token airdrop!
+    const inviteText = `https://t.me/bitcoinfansbot
 
-                          💸  2k Coins as a first-time gift
-                          🔥  25k Coins if you have Telegram Premium`;
-
-    
+                          Join the revolution, and start earning right away`;
     navigator.clipboard.writeText(inviteText).then(() => {
       
       console.log('Invite text copied to clipboard');

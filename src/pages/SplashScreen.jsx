@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Splash } from '../assets';
-
+import { createNSave } from '../utils/services';
+import {setUser} from '../store/userSlice'
 
 const Loader = () => (
   <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-10">
@@ -10,8 +12,30 @@ const Loader = () => (
 );
 
 const SplashScreen = () => {
+  const dispatch = useDispatch()
+  const location = useLocation()
+  const searchParams = new URLSearchParams(location.search)
+  const userId = searchParams.get('userId')
+  console.log('userId , ', userId)
+
+
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+      const fetchData = async () => {
+          try {
+              const response = await createNSave({ telegramId: userId });
+              //console.log("Spplash : ",response)  
+              dispatch(setUser(response));
+          } catch (error) {
+              console.error('Error fetching user data:', error);
+          }
+      };
+      if (userId) {
+          fetchData();
+      }
+  }, [userId, dispatch]);
 
   useEffect(() => {
     

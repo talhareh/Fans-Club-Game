@@ -1,21 +1,17 @@
 /*eslint-disable no-unused-vars */
 import { useEffect , useState, useRef,} from "react"
-import { useDispatch } from "react-redux"
-import { useLocation, } from "react-router-dom"
+import { useDispatch , useSelector} from "react-redux"
 import {  bunnyImage, sphereImage, energyIcon        
 } from "../assets"
-import { createNSave , updateTaps} from "../utils/services"
-import { setUser, } from "../store/userSlice"
+import { updateTaps} from "../utils/services"
+
 import { Circle } from 'rc-progress'; 
 import ModalAlert from "../components/modalAlert"
 import GlowingBtcCoin from "../components/GlowingBtcCoin"
 
-const HomePage = ({userId}) => {
+const HomePage = () => {
     const dispatch = useDispatch()
-    const location = useLocation()
-    const searchParams = new URLSearchParams(location.search)
-    //const userId = searchParams.get('userId')
-    //console.log('userId , ', userId)
+    
     const [energy, setEnergy] = useState(100);
     const [currTaps, setCurrTaps] = useState(0);
     const [totalTaps, setTotalTaps] = useState(0)
@@ -24,7 +20,8 @@ const HomePage = ({userId}) => {
     const accumulatedTapsRef = useRef(0); // New state variable for accumulated taps
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalContent, setModalContent] = useState(null);
-
+    const userId = useSelector((state) => state.user.userId)
+    const reduxTotalTaps = useSelector((state)=> state.user.totalTaps)
     const tapsToAdd = 1;
     const energyToReduce = 1;
 
@@ -64,22 +61,7 @@ const HomePage = ({userId}) => {
         return () => clearInterval(interval); 
       }, []);
 
-    // Regiter User and bring existing user info
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await createNSave({ telegramId: userId });
-                console.log("hoome : ",response)  
-                dispatch(setUser(response));
-                setTotalTaps(response.totalTaps)
-            } catch (error) {
-                console.error('Error fetching user data:', error);
-            }
-        };
-        if (userId) {
-            fetchData();
-        }
-    }, [userId, dispatch]);
+   
 
  // Update taps every 5 seconds
     useEffect(() => {
@@ -158,7 +140,7 @@ const HomePage = ({userId}) => {
                     <div className="score flex mt-8 justify-center ">
                         <GlowingBtcCoin width={50} height = {50}/>
                         <div className="totalTaps px-2 pt-1 text-white text-5xl font-bold">
-                            {totalTaps}
+                            {reduxTotalTaps + totalTaps}
                         </div>
                     </div>
 
