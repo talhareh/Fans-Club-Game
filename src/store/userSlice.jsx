@@ -11,7 +11,7 @@ const userSlice = createSlice({
     initialState, 
     reducers:{
         setUser: (state, action) =>{
-            state.userId = action.payload.userId,
+            state.userId = action.payload.telegramId,
             state.userName = action.payload.userName
             state.totalTaps = action.payload.totalTaps
         }

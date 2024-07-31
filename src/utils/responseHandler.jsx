@@ -2,7 +2,8 @@ import { toast } from 'react-toastify';
 
 
 const handleResponse = (response) => {
-    if (response.status === 200) {
+    
+    if (response.status === 200 || response.status === 201) {
         return response.data;
     } else {
         handleErrors(response.status);
@@ -30,7 +31,6 @@ const handleErrors = (status) => {
             message = 'An unknown error occurred.';
             break;
     }
-
     toast(message, { type });
 };
 
