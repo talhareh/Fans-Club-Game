@@ -87,7 +87,7 @@ const Layout = () => {
           </button>
           <button
             className={`text-white px-4 py-2 rounded-[12px] text-sm font-regular flex flex-col items-center w-20 ${location.pathname === '/airdrop' ? 'bg-[#FF8812]' : 'bg-[#FF881200]'}`}
-            onClick={() => navigate('/airdrop')}
+            onClick={() => navigate('/vault')}
           >
             <img src={airdropicon} alt="Icon" className="h-10" />
             Vault

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import  { useState } from "react";
 import { motion, useTransform, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 import { cn } from "../lib/AceUtils.jsx"; // Adjust the path as necessary
