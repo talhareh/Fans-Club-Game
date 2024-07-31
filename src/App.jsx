@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import {BrowserRouter, Route, Routes,} from 'react-router-dom'
 import Layout from './components/Layout'
 import { HomePage, SplashScreen, Repo, Referral, DailyTasks,
-          Buy
+          Buy, Vault
  } from './pages'
 
 
@@ -18,9 +18,6 @@ const App = () =>{
       webapp.setHeaderColor('#F8922A');
       webapp.setBackgroundColor('#FFFFFF');
     }
-    
-
-    
   }, []);
   return (
     <BrowserRouter>
@@ -31,6 +28,7 @@ const App = () =>{
           <Route path= 'ref' element ={<Referral/>} />
           <Route path= 'earn' element ={<DailyTasks/>} />
           <Route path= 'buy' element ={<Buy/>} />
+          <Route path= 'vault' element ={<Vault/>} />
 
         </Route>
         

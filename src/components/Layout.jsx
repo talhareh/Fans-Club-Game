@@ -1,5 +1,27 @@
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { Logo, bitsBunny, playicon, buyicon, friendsicon, earnicon, airdropicon } from '../assets';
+import { bitsBunny, playicon, buyicon, friendsicon, earnicon, airdropicon, usdtLogo, btcLogo, btcCoin } from '../assets';
+import { AnimatedTooltip } from './AnimatedToolTip';
+
+const iconData = [
+  {
+    id: 1,
+    name: "btcFans",
+    designation: "Enabled",
+    image: btcCoin,
+  },
+  {
+    id: 2,
+    name: "BTC",
+    designation: "Opens at level 15",
+    image: btcLogo,
+  },
+  {
+    id: 3,
+    name: "usdt",
+    designation: "Starts at level 10",
+    image: usdtLogo,
+  },
+];
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -8,9 +30,13 @@ const Layout = () => {
   return (
     <div className="grid grid-cols-4">
       <header className="header col-span-4 sticky top-0 z-0">
-        <div className=" col-span-4 flex justify-center mt-4" style={{ minHeight: '15vh' }}>
-          <img src={Logo} width={200} height={200} alt="Bitcoin Fans Club" />
+        <div className="chooseT flex flex-col justify-center items-center mt-10">
+          <div className="choo text-[#0040C2] font-bold text-2xl">Choose Reward Token</div>
+          <div className="tokIcon flex gap-6">
+          <AnimatedTooltip items={iconData} />
+          </div>
         </div>
+        
         <div className="col-span-4 flex justify-between items-center py-2 rounded-lg mt-4 px-3">
           <div className="flex items-center">
             <img src={bitsBunny} alt="Bits Bunny" className="h-8 w-8 rounded-lg bg-white p-1" />
@@ -61,7 +87,7 @@ const Layout = () => {
           </button>
           <button
             className={`text-white px-4 py-2 rounded-[12px] text-sm font-regular flex flex-col items-center w-20 ${location.pathname === '/airdrop' ? 'bg-[#FF8812]' : 'bg-[#FF881200]'}`}
-            onClick={() => navigate('/airdrop')}
+            onClick={() => navigate('/vault')}
           >
             <img src={airdropicon} alt="Icon" className="h-10" />
             Vault

@@ -11,9 +11,12 @@ import friendsicon from './friends-icon.png';
 import earnicon from './earn-icon.png';
 import airdropicon from './airdrop-icon.png';
 import Splash from './Splash.jpeg'
+import usdtLogo from './usdtLogo.png'
+import btcLogo from './btcLogo.png'
+
 export {
     Logo,bunnyImage, sphereImage,Splash,
-    bitsBunny,
+    bitsBunny,usdtLogo, btcLogo,
     btcCoin,
     character, energyIcon,
     playicon,

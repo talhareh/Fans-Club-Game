@@ -4,8 +4,9 @@ import Repo from './gitRepo'
 import SplashScreen from './SplashScreen'
 import Referral from './Referral'
 import Buy from './Buy'
+import Vault from './Vault'
 
 export {
     HomePage, DailyTasks, Repo, SplashScreen, Referral,
-    Buy
+    Buy, Vault
 }
