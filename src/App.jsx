@@ -19,12 +19,13 @@ const App = () =>{
       webapp.setBackgroundColor('#FFFFFF');
     }
   }, []);
+  
   return (
     <BrowserRouter>
       <Routes>
         <Route path = '/' element ={<SplashScreen/>} />
         <Route element={<Layout />}>
-          <Route path = 'homepage' element ={<HomePage userId= {123}/>} />
+          <Route path = 'homepage' element ={<HomePage/>} />
           <Route path= 'ref' element ={<Referral/>} />
           <Route path= 'earn' element ={<DailyTasks/>} />
           <Route path= 'buy' element ={<Buy/>} />

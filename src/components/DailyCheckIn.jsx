@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import GlowingBtcCoin from './GlowingBtcCoin';
+import { btcCoin } from '../assets';
 import CoinAnimation from './CoinAnimation';
 import {  FaCalendarAlt } from 'react-icons/fa';
 
@@ -38,7 +39,7 @@ const DailyCheckIn = () => {
                 }`}
             >
                 <span className="text">Day {day.day}</span>
-                <GlowingBtcCoin width={15} height={15}/>
+                <GlowingBtcCoin width={15} height={15} src= {btcCoin}/>
                 <span className="text">{day.reward}</span>
             </div>
             ))}

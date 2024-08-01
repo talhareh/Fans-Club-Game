@@ -8,6 +8,7 @@ import { updateTaps} from "../utils/services"
 import { Circle } from 'rc-progress'; 
 import ModalAlert from "../components/modalAlert"
 import GlowingBtcCoin from "../components/GlowingBtcCoin"
+import { btcCoin } from "../assets";
 
 const HomePage = () => {
     const dispatch = useDispatch()
@@ -138,7 +139,7 @@ const HomePage = () => {
                     </div>
 
                     <div className="score flex mt-8 justify-center ">
-                        <GlowingBtcCoin width={50} height = {50}/>
+                        <GlowingBtcCoin width={50} height = {50} src = {btcCoin}/>
                         <div className="totalTaps px-2 pt-1 text-white text-5xl font-bold">
                             {reduxTotalTaps + totalTaps}
                         </div>

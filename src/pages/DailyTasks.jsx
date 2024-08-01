@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FaCalendarAlt, FaCommentDots, FaTwitter, FaPiggyBank } from 'react-icons/fa';
 import GlowingBtcCoin from '../components/GlowingBtcCoin';
+import { btcCoin } from '../assets';
 import ModalAlert from '../components/modalAlert';
 import DailyCheckIn from '../components/DailyCheckIn';
 const DailyTasks = () => {
@@ -9,7 +10,7 @@ const DailyTasks = () => {
   return (
     <div className="playArea relative z-20 bg-[#0040C2] text-white rounded-t-[50px] w-full col-span-4 border-t-[5px] border-[#F8922A] p-1 px-2">
       <div className="btc-img col-span-4 flex justify-center items-center mt-8">
-      <GlowingBtcCoin width={150} height={150} />
+      <GlowingBtcCoin width={150} height={150} src = {btcCoin}/>
       </div>
       <h1 className="text-2xl mt-8 font-bold mb-4 justify-center flex">Earn more coins</h1>
       
