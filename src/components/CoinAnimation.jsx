@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
 import GlowingBtcCoin from './GlowingBtcCoin';
+import { btcCoin } from '../assets';
 import "../App.css"
 
 const CoinAnimation = ({ isAnimating, onAnimationComplete }) => {
@@ -36,7 +37,7 @@ const CoinAnimation = ({ isAnimating, onAnimationComplete }) => {
             animationDelay: coin.delay
           }}
         >
-          <GlowingBtcCoin width={15} height={15} />
+          <GlowingBtcCoin width={15} height={15} src = {btcCoin} />
         </div>
       ))}
     </div>

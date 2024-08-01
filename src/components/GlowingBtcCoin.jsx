@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
-import { btcCoin } from "../assets";
 
-const GlowingBtcCoin = ({ width, height }) => {
+const GlowingBtcCoin = ({ width, height, src }) => {
     return (
       <div className="relative flex justify-center items-center" style={{ width, height }}>
         <img 
-          src={btcCoin} 
+          src={src} 
           width={width} 
           height={height} 
           className="relative z-10"
