@@ -1,7 +1,7 @@
 /*eslint-disable no-unused-vars */
 import { useEffect , useState, useRef,} from "react"
-import { useDispatch , useSelector} from "react-redux"
-import {  bunnyImage, sphereImage, energyIcon        
+import { useSelector} from "react-redux"
+import {  bunnyImage, sphereImage, energyIcon, btcLogo, usdtLogo, bfc        
 } from "../assets"
 import { updateTaps} from "../utils/services"
 
@@ -11,9 +11,8 @@ import GlowingBtcCoin from "../components/GlowingBtcCoin"
 import { btcCoin } from "../assets";
 
 const HomePage = () => {
-    const dispatch = useDispatch()
     
-    const [energy, setEnergy] = useState(100);
+    const [energy, setEnergy] = useState(1500);
     const [currTaps, setCurrTaps] = useState(0);
     const [totalTaps, setTotalTaps] = useState(0)
     const [clicks, setClicks] = useState([]);
@@ -21,6 +20,9 @@ const HomePage = () => {
     const accumulatedTapsRef = useRef(0); // New state variable for accumulated taps
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalContent, setModalContent] = useState(null);
+    const [eusdt, setEusdt] = useState(0)
+    const [ebtc, setEbtc] = useState(0)
+    const [ebfc, setEbfc] = useState(0)
     const userId = useSelector((state) => state.user.userId)
     const reduxTotalTaps = useSelector((state)=> state.user.totalTaps)
     const tapsToAdd = 1;
@@ -44,6 +46,13 @@ const HomePage = () => {
         }, 1000);
         accumulatedTapsRef.current += tapsToAdd;
         // console.log('currTaps, ', currTaps)
+        const newEbfc = (totalTaps + tapsToAdd+reduxTotalTaps) / 3;
+        const newEusdt = newEbfc / 33333;
+        const newEbtc = newEusdt / 65000;
+        console.log({bfc:newEbfc, usdt: newEusdt, btc: newEbtc})
+        setEbfc(newEbfc.toFixed(2));
+        setEusdt(newEusdt.toFixed(5));
+        setEbtc(newEbtc.toFixed(9));
     }
 
     const handleAnimationEnd = (id) => {
@@ -54,9 +63,8 @@ const HomePage = () => {
     useEffect(() => {
         //console.log('energy : ', energy)
         const interval = setInterval(() => {
-            // if(energy === 100)
-            //     return
-            setEnergy((prevEnergy) => Math.min(prevEnergy + 1, 100));
+            
+            setEnergy((prevEnergy) => Math.min(prevEnergy + 3.33, 1500));
         }, 1000); 
     
         return () => clearInterval(interval); 
@@ -94,47 +102,30 @@ const HomePage = () => {
     return (
         
                 <div className="playArea relative z-20 bg-[#0040C2] rounded-t-[50px] w-full col-span-4 border-t-[5px] border-[#F8922A] p-1 pb-6">
-                    
-                    <div className="infoCards mt-8 flex gap-3 pl-6">
-                        <div className="earnRate bg-[#365ACB] rounded-[15px] py-2 px-2" 
-                            onClick={() => openModal(
-                                <div>
-                                    <p className="text-white mb-4">Choose your earn rate:</p>
-                                    <select className="w-full p-2 rounded" onChange={(e) => handleModalAction(e.target.value)}>
-                                        <option value="10">10 per tap</option>
-                                        <option value="20">20 per tap</option>
-                                        <option value="30">30 per tap</option>
-                                    </select>
-                                </div>
-                            )}>
-                            <div className="info text-[#F79841]">Earn per tap</div>
-                            <div className="ans text-white flex justify-center"> +12</div>
+
+                    <div className="infoCards mt-8 flex justify-between  gap-1 text-sm">
+                        <div className="earnRate bg-[#365ACB] rounded-[15px] py-2 px-2 flex flex-col items-center flex-1">
+                            <div className="info text-[#F79626] font-bold">BTC</div>
+                            <div className="flex items-center gap-2">
+                                <GlowingBtcCoin width= {30} height ={30} src = {btcLogo}/>                                
+                                <div className="ans text-white flex justify-center"> {parseFloat(ebtc)}</div>
+                            </div>
                         </div>
 
-                        <div className="cionsNeeded bg-[#365ACB] rounded-[15px] py-2 px-2"
-                            onClick={() => openModal(
-                                <div>
-                                    <p className="text-white mb-4">Set coins needed to level up:</p>
-                                    <input type="number" className="w-full p-2 rounded" placeholder="Enter coin amount" 
-                                            onChange={(e) => handleModalAction(e.target.value)} />
-                                </div>
-                            )}>
-                            <div className="info text-[#8D90FE]">Coins to level up</div>
-                            <div className="ans text-white flex justify-center"> 10 M</div>
+                        <div className="earnRate bg-[#365ACB] rounded-[15px] py-2 px-2 flex flex-col items-center flex-1">
+                            <div className="info text-[#54AE94] font-bold">USDT</div>
+                            <div className="flex items-center gap-2">
+                                <GlowingBtcCoin width= {30} height ={30} src = {usdtLogo}/>                                
+                                <div className="ans text-white flex justify-center"> {parseFloat(eusdt)}</div>
+                            </div>
                         </div>
                         
-                        <div className="cionsNeeded bg-[#365ACB] rounded-[15px] py-2 px-2"
-                            onClick={() => openModal(
-                                <div>
-                                    <p className="text-white mb-4">Adjust profit per hour:</p>
-                                    <button className="bg-[#F8922A] text-white px-4 py-2 rounded w-full" 
-                                            onClick={() => handleModalAction('increase_profit')}>
-                                        Increase Profit
-                                    </button>
-                                </div>
-                            )}>
-                            <div className="info text-[#84CB69]">Profit per hour</div>
-                            <div className="ans text-white flex justify-center"> +636.31K</div>
+                        <div className="earnRate bg-[#365ACB] rounded-[15px] py-2 px-2 flex flex-col items-center flex-1">
+                            <div className="info text-[#F79841] font-bold">BFC</div>
+                            <div className="flex items-center gap-2">
+                                <GlowingBtcCoin width= {30} height ={30} src = {bfc}/>                               
+                                <div className="ans text-white flex justify-center"> {ebfc}</div>
+                            </div>
                         </div>
                     </div>
 
@@ -157,14 +148,6 @@ const HomePage = () => {
                             trailColor="#365ACB00"
                             className="relative z-10"
                             />
-                            {/* <div
-                            className="absolute inset-0 flex items-center justify-center rounded-full"
-                            style={{
-                                width: 'calc(100% - 8px)',
-                                height: 'calc(100% - 8px)',
-                                background: 'radial-gradient(circle at 50% 40%, #FFFFFF 0%, #35389E 40%, #1C2848 100%)'
-                            }}
-                            ></div> */}
                         </div>
                         <div className="sphere relative z-0">
                             <img src={sphereImage}/>
@@ -196,7 +179,7 @@ const HomePage = () => {
                     {/* <div className="boostProgress text-center text-white text-sm mb-4 flex justify-between items-center px-2"> */}
                         <div className="flex items-center justify-center text-xl text-white mb-4">
                             <img src={energyIcon} alt="Icon" className="h-5 w-5 mr-2" />
-                            <span>{energy} / 100</span>
+                            <span>{Math.floor(energy)} / 1500</span>
                         </div>
                         {/* <span>Boost</span> */}
                     {/* </div> */}
