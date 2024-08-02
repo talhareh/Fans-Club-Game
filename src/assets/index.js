@@ -13,11 +13,12 @@ import airdropicon from './airdrop-icon.png';
 import Splash from './Splash.jpeg'
 import usdtLogo from './usdtLogo.png'
 import btcLogo from './btcLogo.png'
+import bfc from './token.svg'
 
 export {
     Logo,bunnyImage, sphereImage,Splash,
     bitsBunny,usdtLogo, btcLogo,
-    btcCoin,
+    btcCoin, bfc,
     character, energyIcon,
     playicon,
     buyicon,
